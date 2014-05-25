@@ -8,16 +8,19 @@ class FlipkartParserTest extends FunSuite with Matchers with TestUtils {
   test("should parse product page") {
     val document = readDocument("/flipkart/flipkart_1.html")
     val parser = new FlipkartParser
-    val parsedProduct = parser.parseProduct(document, "http://www.flipkart.com/microsoft-windows-8-8-1-sl-oem-64-bit/p/itmdztjtw8gymtwd?pid=OPSDNW94WXHFDGAF&srno=b_1&ref=4847fd47-daaa-4b4e-ab56-c3a3ac84c7d5")
-    parsedProduct.name should be("Microsoft Windows 8 / 8.1 SL OEM 64 bit")
-    parsedProduct.description should include("Microsoft Windows 8 / 8.1 SL OEM 64 bit General Edition Windows 8")
+    val parsedProduct = parser.parseProduct(document, "http://www.flipkart.com/fastrack-explorer-analog-watch-men/p/itmdmmzyz26qjrh9?pid=WATDMMZVQVUJ3E6F&srno=b_1&ref=92832318-0578-4e09-835d-79e2df08e6c9")
+    parsedProduct.name should be("Fastrack Explorer Analog Watch - For Men")
+    parsedProduct.description should include("Specifications of Fastrack Explorer Analog Watch - For Men (Dark Blue) General Type Analog Series Explorer Ideal For Men Occasion College Style Code 9463AL07 Body Features Strap Material Canvas Strap Strap Color Dark Blue Dial Color Blue Dial Shape Round Other Body Features Contrast Color Leather Loops, Strap with Soft Leather Lining Warranty 6 Months Domestic Warranty")
   }
 
   test("should parse prices from product page") {
     val document = readDocument("/flipkart/flipkart_1.html")
     val parser = new FlipkartParser
     val parsedPrice = parser.parsePrice(document)
-    parsedPrice.listPrice should be(8500.0)
-    parsedPrice.salePrice should be(6049.0)
+    println(parsedPrice.listPrice)
+    //parsedPrice.listPrice should be(0.0)
+    parsedPrice.salePrice should be(1995.0)
   }
 }
+
+

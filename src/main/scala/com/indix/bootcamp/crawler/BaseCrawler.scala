@@ -2,10 +2,11 @@ package com.indix.bootcamp.crawler
 
 import edu.uci.ics.crawler4j.crawler.{Page, WebCrawler}
 import edu.uci.ics.crawler4j.parser.HtmlParseData
-import com.indix.bootcamp.parser.{Parser, FlipkartParser}
+import com.indix.bootcamp.parser.{JabongParser, Parser, FlipkartParser}
 import java.io.{PrintWriter, File}
 import scala.util.Random
 import edu.uci.ics.crawler4j.url.WebURL
+import scala.util.matching.Regex
 
 abstract class BaseCrawler extends WebCrawler {
   val parser: Parser
@@ -18,23 +19,22 @@ abstract class BaseCrawler extends WebCrawler {
 
       An example is provided for reference.
    */
-  def excludeFilters = List(
-    "(?i)(.*(\\.(pdf|flv))(\\?.*)*)$"
+    def excludeFilters = List(
+    "(?i)(.*(\\.(pdf|flvcss|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|rm|smil|wmv|swf|wma|zip|rar|gz))$"
   )
 
-  override def shouldVisit(url: WebURL): Boolean = {
-    val urlStr = url.getURL
-    !excludeFilters.exists(urlStr.matches)
+   override def shouldVisit(url: WebURL): Boolean = {
+   val urlStr = url.getURL
+   !excludeFilters.exists(urlStr.matches)
   }
-
-  override def visit(page: Page) {
-    println(s"Fetched ${page.getWebURL.getURL} from ${page.getWebURL.getAnchor}")
-    page.getParseData match {
+   override def visit(page: Page) {
+   println(s"Fetched ${page.getWebURL.getURL} from ${page.getWebURL.getAnchor}")
+   page.getParseData match {
       case data: HtmlParseData =>
-        val result = parser.parse(data.getHtml, page.getWebURL.getURL)
-        println(s"Parsed successfully as ${result}")
-        writer.append(result.toCsv)
-        writer.append("\n")
+      val result = parser.parse(data.getHtml, page.getWebURL.getURL)
+      println(s"Parsed successfully as ${result}")
+      writer.append(result.toCsv)
+      writer.append("\n")
     }
   }
 
@@ -45,4 +45,8 @@ abstract class BaseCrawler extends WebCrawler {
 
 class FlipkartCrawler extends BaseCrawler {
   override val parser: Parser = new FlipkartParser
+}
+
+class JabongCrawler extends  BaseCrawler {
+  override val parser: Parser = new JabongParser
 }
