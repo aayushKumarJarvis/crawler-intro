@@ -13,10 +13,9 @@ class FlipkartParser extends Parser {
   // TODO: Fix the price Extraction
   override def parsePrice(document: Document): Price = {
     val listPrice = document.select(".old-price").text().split(" ")(1).toDouble
-    val salePrice = document.select("itemprop[name=price]").attr("content").toDouble
-    println(salePrice)
+    val sale = document.select(".pprice")
+    val salePrice = sale.text().split(" ")(1).toDouble
     Price(listPrice, salePrice)
-
   }
 }
 

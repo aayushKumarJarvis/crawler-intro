@@ -16,8 +16,8 @@ object CrawlDriver extends App {
   val config = new CrawlConfig()
   config.setCrawlStorageFolder(crawlStorageFolder)
   config.setPolitenessDelay(1000)
-  config.setMaxDepthOfCrawling(3)
-  config.setMaxPagesToFetch(1000)
+  config.setMaxDepthOfCrawling(4)
+  config.setMaxPagesToFetch(2000)
 //  config.setResumableCrawling(true) // Enable as required
 //  config.setProxyHost("proxy.production.indix.tv")
 //  config.setProxyPort(8080)

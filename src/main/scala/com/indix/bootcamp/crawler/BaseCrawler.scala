@@ -20,7 +20,7 @@ abstract class BaseCrawler extends WebCrawler {
       An example is provided for reference.
    */
     def excludeFilters = List(
-    "(?i)(.*(\\.(pdf|flvcss|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|rm|smil|wmv|swf|wma|zip|rar|gz))$"
+    "(?i)(.*(\\.(pdf|flv|css|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|rm|smil|wmv|swf|wma|zip|rar|gz))$"
   )
 
    override def shouldVisit(url: WebURL): Boolean = {
