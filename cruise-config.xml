@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="72">
+  <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="35c456bb-08ac-48ae-a33b-c733b464cbc4" />
+  <pipelines group="defaultGroup">
+    <pipeline name="crawler_assignment">
+      <materials>
+        <git url="https://github.com/y12uc002/crawler-intro" />
+      </materials>
+      <stage name="test">
+        <jobs>
+          <job name="runTests">
+            <tasks>
+              <exec command="mvn">
+                <arg>test</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="generate-artifacts">
+        <jobs>
+          <job name="createJARartifact">
+            <tasks>
+              <exec command="mvn">
+                <arg>clean</arg>
+                <arg>package</arg>
+              </exec>
+            </tasks>
+            <artifacts>
+              <test src="target/surefire-reports" dest="tests" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <agents>
+    <agent hostname="AayushKumar" ipaddress="172.16.1.110" uuid="d3aca320-a112-489a-84a4-0b23f53f9ea8" />
+  </agents>
+</cruise>
